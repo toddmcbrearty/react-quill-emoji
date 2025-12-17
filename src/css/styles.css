@@ -1,18 +1,16 @@
-@import './variables';
-
 #quill-editor {
     position: relative;
 }
 
 .mention {
-    color: $blue;
+    color: var(--blue);
 }
 
 .completions {
     list-style: none;
     margin: 0;
     padding: 0;
-    background: $white;
+    background: var(--white);
     border-radius: 2px;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
@@ -32,10 +30,10 @@
     background: none;
 }
 .completions > li > button:hover {
-    background: $light-gray;
+    background: var(--light-gray);
 }
 .completions > li > button:focus {
-    background: $light-gray;
+    background: var(--light-gray);
     outline: none;
 }
 .completions > li > button > .matched {
@@ -50,24 +48,20 @@
     margin: 0;
     border: 1px solid rgba(0,0,0,.15);
     padding: 6px;
-    background: $white;
+    background: var(--white);
     border-radius: 3px;
     box-shadow: 0 5px 10px rgba(0,0,0,.12);
-
-    li {
-        margin: 2px 0;
-        padding: 0;
-        display: inline-block;
-        // margin-right: 2px;
-        // margin-bottom: 2px;
-        &:not(:last-of-type) {
-            margin-right: 3px;
-        }
-    }
-
 }
 
+.emoji_completions li {
+    margin: 2px 0;
+    padding: 0;
+    display: inline-block;
+}
 
+.emoji_completions li:not(:last-of-type) {
+    margin-right: 3px;
+}
 
 .emoji_completions > li > button {
     box-sizing: border-box;
@@ -78,27 +72,24 @@
     text-align: left;
     border: none;
     background: #efefef;
-    // border: 1px solid $cyan;
     border-radius: 3px;
-    // text-shadow: 0 1px rgba(0,0,0,.1);
-
 }
 
 .emoji_completions > li > button:hover {
-            background: $cyan;
-            color: $white;
+    background: var(--cyan);
+    color: var(--white);
 }
 .emoji_completions > li > button:focus {
-            background: $cyan;
-            outline: none;
-            color: $white;
+    background: var(--cyan);
+    outline: none;
+    color: var(--white);
 }
 .emoji_completions>li>button.emoji-active{background:red;background:#2d9ee0;outline:none;color:#fff}
 .emoji_completions > li > button > .matched {
-            font-weight: bold;
+    font-weight: bold;
 }
 .emoji_completions > li > button > * {
-            vertical-align: middle;
+    vertical-align: middle;
 }
 
 .ico {
@@ -122,7 +113,6 @@
     text-align: center;
     cursor: pointer;
     margin:2px;
-
 }
 #tab-filters {
     width: 210px;
@@ -156,8 +146,7 @@
     max-height: 220px;
     overflow-y: scroll;
     padding: 2px;
-    background: $white;
-
+    background: var(--white);
 }
 
 #quill-editor x-contain, contain {

@@ -1,7 +1,7 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const config = {
   entry: './src/quill-emoji.js',
@@ -24,18 +24,10 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'resolve-url-loader',
-          { 
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sourceMapContents: false
-            }
-          },
         ],
       },
       {
@@ -67,8 +59,8 @@ const config = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           compress: {
             warnings: false,
             conditionals: true,
@@ -85,7 +77,7 @@ const config = {
           }
         }
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new CssMinimizerPlugin()
     ]
   },
   plugins: [
