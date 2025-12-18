@@ -2,7 +2,6 @@ import Quill from 'quill';
 import Fuse from 'fuse.js';
 import emojiList from './emoji-list.js';
 
-const Delta = Quill.import('delta');
 const Module = Quill.import('core/module');
 
 class ToolbarEmoji extends Module {
@@ -12,9 +11,9 @@ class ToolbarEmoji extends Module {
     this.quill = quill;
     this.toolbar = quill.getModule('toolbar');
     if (typeof this.toolbar !== 'undefined')
-      this.toolbar.addHandler('emoji', this.checkPalatteExist);
+      this.toolbar.addHandler('emoji', this.checkPaletteExist);
 
-    var emojiBtns = document.getElementsByClassName('ql-emoji');
+    const emojiBtns = document.getElementsByClassName('ql-emoji');
     if (emojiBtns) {
       [].slice.call( emojiBtns ).forEach(function ( emojiBtn ) {
         emojiBtn.innerHTML = options.buttonIcon;
@@ -22,7 +21,7 @@ class ToolbarEmoji extends Module {
     }
   }
 
-  checkPalatteExist() {
+  checkPaletteExist() {
     let quill = this.quill;
     fn_checkDialogOpen(quill);
     this.quill.on('text-change', function(delta, oldDelta, source) {
@@ -35,7 +34,7 @@ class ToolbarEmoji extends Module {
 }
 
 ToolbarEmoji.DEFAULTS = {
-  buttonIcon: '<svg viewbox="0 0 18 18"><circle class="ql-fill" cx="7" cy="7" r="1"></circle><circle class="ql-fill" cx="11" cy="7" r="1"></circle><path class="ql-stroke" d="M7,10a2,2,0,0,0,4,0H7Z"></path><circle class="ql-stroke" cx="9" cy="9" r="6"></circle></svg>'
+  buttonIcon: '&#128515;',
 };
 
 function fn_close(){
@@ -50,18 +49,16 @@ function fn_checkDialogOpen(quill){
     elementExists.remove();
   }
   else{
-    fn_showEmojiPalatte(quill);
+    fn_showEmojiPalette(quill);
   }
 }
 
 function fn_updateRange(quill){
-  let range = quill.getSelection();
-  return range;
+    return quill.getSelection();
 }
 
-function fn_showEmojiPalatte(quill) {
+function fn_showEmojiPalette(quill) {
   let ele_emoji_area = document.createElement('div');
-  let toolbar_container = document.querySelector('.ql-toolbar');
   let range = quill.getSelection();
   const atSignBounds = quill.getBounds(range.index);
 
@@ -86,7 +83,7 @@ function fn_showEmojiPalatte(quill) {
   panel.id="tab-panel";
   ele_emoji_area.appendChild(panel);
 
-  var emojiType = [
+  const emojiType = [
     {'type':'p','name':'people','content':'<div class="i-people"></div>'},
     {'type':'n','name':'nature','content':'<div class="i-nature"></div>'},
     {'type':'d','name':'food','content':'<div class="i-food"></div>'},
@@ -97,7 +94,8 @@ function fn_showEmojiPalatte(quill) {
     {'type':'f','name':'flags','content':'<div class="i-flags"></div>'}
   ];
 
-  let tabElementHolder = document.createElement('ul');
+  const tabElementHolder = document.createElement('ul');
+
   tabToolbar.appendChild(tabElementHolder);
 
   if (document.getElementById('emoji-close-div') === null) {
@@ -140,7 +138,7 @@ function fn_emojiPanelInit(panel,quill){
 }
 
 function fn_emojiElementsToPanel(type,panel,quill){
-  let fuseOptions = {
+  const fuseOptions = {
     shouldSort: true,
     matchAllTokens: true,
     threshold: 0.3,
@@ -161,7 +159,7 @@ function fn_emojiElementsToPanel(type,panel,quill){
   quill.focus();
   let range = fn_updateRange(quill);
 
-  result.map(function(emoji) {
+  result.map(function({item: emoji}) {
     let span = document.createElement('span');
     let t = document.createTextNode(emoji.shortname);
     span.appendChild(t);
@@ -169,8 +167,8 @@ function fn_emojiElementsToPanel(type,panel,quill){
     span.classList.add('bem-' + emoji.name);
     span.classList.add('ap');
     span.classList.add('ap-' + emoji.name);
-    let output = '' + emoji.code_decimal + '';
-    span.innerHTML = output + ' ';
+    span.innerHTML = emoji.code_decimal;
+      console.log(emoji)
     panel.appendChild(span);
 
     let customButton = document.querySelector('.bem-' + emoji.name);
